@@ -63,3 +63,27 @@ My choice of board was the Sparkfun Thing Plus SAMD51.
 * VCC and GND to each of LCD1602, sd-card breakout module, PAM8302 amplifier
 * 10k pull-up resistor betwee VCC and sd-card CS
 * GND to each of the three push-button switches
+
+# SD Card setup
+
+The card should be formatted as VFAT and contain the following directories at
+the top level:
+
+    /80/  /81/  /82/  /83/  /84/  /85/  /86/  /87/  /88/  /89/
+
+and then you need to place your mp3s within the appropriate directory. The program
+doesn't do any kind of checking that an mp3 in the /86/ directory, for example, really
+is from 1986. It's up to you to do the hard work beforehand!
+
+In order for the LCD to display the Artist and Song Name correctly, the mp3 file
+should have the following format:
+
+    "Artist - Title.mp3"
+
+either or both of those can contain spaces but the artist mustn't have a " - " (space-hyphen-space) as the code assumes everything up until the first occurrence of that string is the Artist Name, everything afterwards is the Song Name.
+
+Examples:
+
+    "Wham! - Freedom.mp3"
+    "Frankie Goes to Hollywood - Two Tribes.mp3"
+
