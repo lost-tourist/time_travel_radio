@@ -180,23 +180,25 @@ def play_tracks_from_year(player, lcd_device):
                 print("PAUSED")
                 paused = True
                 display_paused(lcd_device)
-                time.sleep(0.4)
+                time.sleep(0.4) # debounce
 
             while paused:
-                time.sleep(0.2)
+                time.sleep(0.1)
                 if switch_pressed(switch_pause):
                     player.resume()
                     print("UNPAUSED")
                     display_unpaused(lcd_device)
                     paused = False
+                    time.sleep(0.5) # debounce
 
             # After checking for Pause as above, this is actually all that's involved in the
             # main inner loop, as the audiomp3 library very handily plays in a background thread
             # so we don't actually need to do anything other than update the display and check
-            # user input.  
-            time.sleep(0.4)
+            # user input.
+            delay = time.monotonic()
+            while (time.monotonic() - delay < 0.4) and not(user_input):
+                user_input = check_switches()
             a_offset, s_offset = display_now_playing(lcd_device, artist, song, a_offset, s_offset)
-            user_input = check_switches()
         
         track_index += 1
         if track_index >= num_tracks:
