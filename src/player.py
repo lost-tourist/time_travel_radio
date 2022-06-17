@@ -21,7 +21,7 @@ PIN_SPKR = board.A0
 
 switch_next_year = switch_prev_year = switch_pause = None
 
-current_year = random.randrange(80, 90)
+current_year = 0
 track_index = 0
 paused = False
 
@@ -249,8 +249,12 @@ def initialise_devices():
     return lcd_device, player
 
 def main():
+    global current_year
+
     initialise_board()
     lcd_device, player = initialise_devices()
+    current_year = random.randrange(80, 90)
+
     while True:
         play_tracks_from_year(player, lcd_device)
 
